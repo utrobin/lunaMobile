@@ -1,5 +1,6 @@
 import React from 'react';
 import {StyleSheet, View, AppRegistry} from 'react-native';
+import {connect} from 'react-redux';
 import {Button, Text} from 'native-base';
 import Test from '../App/App';
 
@@ -12,7 +13,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-export default class Home extends React.Component {
+class Home extends React.Component {
 	// static navigationOptions = {
 	// 	title: 'HomePage',
 	// };
@@ -27,7 +28,7 @@ export default class Home extends React.Component {
 				<Test />
 
 				<Button
-					onPress={() => {}}
+					onPress={() => this.props.navigateRegestration()}
 					block
 				>
 					<Text>Регистрация</Text>
@@ -36,3 +37,15 @@ export default class Home extends React.Component {
 		);
 	}
 }
+
+const mapStateToProps = (state) => state;
+
+function mapDispatchToProps(dispatch) {
+	return {
+		navigateRegestration() {
+			dispatch({type: 'RegistrationScreen'});
+		},
+	};
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Home);

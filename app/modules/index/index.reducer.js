@@ -17,7 +17,7 @@ const tempNavState = AppNavigator.router.getStateForAction(firstAction);
 
 const secondAction = AppNavigator.router.getActionForPathAndParams('RegistrationScreen');
 const initialNavState = AppNavigator.router.getStateForAction(
-	secondAction,
+	firstAction,
 	tempNavState
 );
 
@@ -32,7 +32,7 @@ function nav(state = initialNavState, action) {
 			break;
 		case 'RegistrationScreen':
 			nextState = AppNavigator.router.getStateForAction(
-				NavigationActions.navigate({ routeName: 'Home' }),
+				NavigationActions.navigate({ routeName: 'RegistrationScreen' }),
 				state
 			);
 			break;
