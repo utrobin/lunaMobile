@@ -11,26 +11,24 @@ const styles = StyleSheet.create({
 		padding: 10,
 		justifyContent: 'center',
 	},
+    regBtn: {
+	    marginTop: 25,
+    }
 });
 
 class Home extends React.Component {
 	static navigationOptions = {
-		title: 'HomePage',
+		title: 'Luna',
 	};
 
 	render() {
 		return (
 			<View style={styles.container}>
-				<Text>Open up App.js to start working on your app!</Text>
-				<Text>Changes you make will autom4324atically reload.</Text>
-				<Text>Shake your phone to323 open the developer menu.</Text>
+				<Text>Добро пожаловать в проект Луна!</Text>
+				<Text>Ниже вы можете приступить к регистрации</Text>
 
-				<Test />
-
-				<Button
-					onPress={() => this.props.navigateRegestration()}
-					block
-				>
+				<Button style={styles.regBtn}
+					onPress={() => this.props.navigateRegestration()} block>
 					<Text>Регистрация</Text>
 				</Button>
 			</View>
