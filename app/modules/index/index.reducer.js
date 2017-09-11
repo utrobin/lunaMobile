@@ -1,14 +1,54 @@
+import {combineReducers} from 'redux';
 import {handleActions} from 'redux-actions';
+import { NavigationActions } from 'react-navigation';
+import {FormReducer, reducer as formReducer} from 'redux-form';
+import {AppNavigator} from '../../navigators/AppNavigator';
 
-// import {
-// 	Pages,
-// 	STEP_NEXT_APPLY,
-// } from './step.constants';
+const initialS = 'Redux';
 
-const initialState = {
-	value: 'Redux'
-};
-
-export default handleActions({
+const value = handleActions({
 	['TEST']: (state) => state + 1,
-}, initialState);
+}, initialS);
+
+console.log(AppNavigator);
+
+const firstAction = AppNavigator.router.getActionForPathAndParams('Home');
+const tempNavState = AppNavigator.router.getStateForAction(firstAction);
+
+const secondAction = AppNavigator.router.getActionForPathAndParams('RegistrationScreen');
+const initialNavState = AppNavigator.router.getStateForAction(
+	secondAction,
+	tempNavState
+);
+
+function nav(state = initialNavState, action) {
+	let nextState;
+	switch (action.type) {
+		case 'Home':
+			nextState = AppNavigator.router.getStateForAction(
+				NavigationActions.back(),
+				state
+			);
+			break;
+		case 'RegistrationScreen':
+			nextState = AppNavigator.router.getStateForAction(
+				NavigationActions.navigate({ routeName: 'Home' }),
+				state
+			);
+			break;
+		default:
+			nextState = AppNavigator.router.getStateForAction(action, state);
+			break;
+	}
+
+	// Simply return the original `state` if `nextState` is null or undefined.
+	return nextState || state;
+}
+
+const rootReducer = combineReducers({
+	nav,
+	value,
+	form: formReducer,
+});
+
+export default rootReducer;
