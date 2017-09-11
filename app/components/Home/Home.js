@@ -28,7 +28,7 @@ class Home extends React.Component {
 				<Text>Ниже вы можете приступить к регистрации</Text>
 
 				<Button style={styles.regBtn}
-					onPress={() => this.props.navigateRegestration()} block>
+					onPress={() => this.props.navigateRegistration()} block>
 					<Text>Регистрация</Text>
 				</Button>
 			</View>
@@ -40,7 +40,7 @@ const mapStateToProps = (state) => state;
 
 function mapDispatchToProps(dispatch) {
 	return {
-		navigateRegestration() {
+		navigateRegistration() {
 			dispatch({type: 'RegistrationScreen'});
 		},
 	};
