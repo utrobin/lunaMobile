@@ -14,9 +14,9 @@ const styles = StyleSheet.create({
 });
 
 class Home extends React.Component {
-	// static navigationOptions = {
-	// 	title: 'HomePage',
-	// };
+	static navigationOptions = {
+		title: 'HomePage',
+	};
 
 	render() {
 		return (

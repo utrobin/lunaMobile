@@ -13,12 +13,10 @@ const value = handleActions({
 console.log(AppNavigator);
 
 const firstAction = AppNavigator.router.getActionForPathAndParams('Home');
-const tempNavState = AppNavigator.router.getStateForAction(firstAction);
+// const tempNavState = AppNavigator.router.getStateForAction(firstAction);
 
-const secondAction = AppNavigator.router.getActionForPathAndParams('RegistrationScreen');
 const initialNavState = AppNavigator.router.getStateForAction(
 	firstAction,
-	tempNavState
 );
 
 function nav(state = initialNavState, action) {
