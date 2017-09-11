@@ -1,6 +1,7 @@
 import React from 'react';
 import {StyleSheet, View} from 'react-native';
 import {reduxForm, Field} from 'redux-form';
+import {connect} from 'react-redux';
 import {Button, Text, Form, Item, Label, Input} from 'native-base';
 
 function WrapperInput (props) {
@@ -52,4 +53,17 @@ class RegistrationScreen extends React.Component {
 	}
 }
 
-export default reduxForm({form: 'signUp'})(RegistrationScreen);
+const mapStateToProps = (state) => state;
+
+function mapDispatchToProps(dispatch) {
+    return {
+        navigateMasterScreen() {
+            dispatch({type: 'MasterScreen'});
+        },
+    };
+}
+
+
+RegistrationScreen = connect(mapStateToProps, mapDispatchToProps)(RegistrationScreen);
+
+export default reduxForm({form: 'signUp'})(RegistrationScreen)
