@@ -1,7 +1,8 @@
 import React from 'react';
 import {StyleSheet, View, Image} from 'react-native';
 import {connect} from 'react-redux';
-import {Text} from 'native-base';
+import {Text, FlatList, ActivityIndicator} from "react-native";
+import {List} from "react-native-elements";
 
 const styles = StyleSheet.create({
     container: {
@@ -24,13 +25,63 @@ class Feed extends React.Component {
         ),
     };
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <Text>Feed</Text>
-            </View>
-        );
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            loading: false,
+            data: [],
+            page: 1,
+            seed: 1,
+            error: null,
+            refreshing: false,
+        };
     }
+
+    render() {
+        if (this.state.loading) {
+            return (
+                <ActivityIndicator animating size="large" style={styles.container}/>
+            )
+        }
+        else {
+            return (
+                <List>
+                    <FlatList
+                        data={this.state.data}
+                        renderItem={({item}) => (
+                            <Image style={{width: 350, height: 350, alignItems: 'center'}}
+                                   source={{uri: 'http://www.nice.com/PublishingImages/Career%20images/J---HR_Page-4st-strip-green-hair%20(2).png?RenditionID=-1'}}/>
+                        )}
+                        keyExtractor={item => item.email}
+                    />
+                </List>
+            );
+        }
+    }
+
+    componentDidMount() {
+        this.makeRemoteRequest();
+    }
+
+    makeRemoteRequest = () => {
+        const {page, seed} = this.state;
+        const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=20`;
+        this.setState({loading: true});
+        fetch(url)
+            .then(res => res.json())
+            .then(res => {
+                this.setState({
+                    data: page === 1 ? res.results : [...this.state.data, ...res.results],
+                    error: res.error || null,
+                    loading: false,
+                    refreshing: false
+                });
+            })
+            .catch(error => {
+                this.setState({error, loading: false});
+            });
+    };
 }
 
 const mapStateToProps = (state) => state;
