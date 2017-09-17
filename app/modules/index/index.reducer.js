@@ -12,7 +12,15 @@ const value = handleActions({
 
 console.log(AppNavigator);
 
-const firstAction = AppNavigator.router.getActionForPathAndParams('Home');
+const firstAction=AppNavigator.router.getStateForAction(NavigationActions.reset({
+    index: 0,
+    actions: [
+        NavigationActions.navigate({
+            routeName: 'Home'
+        }),
+    ],
+}));
+
 const initialNavState = AppNavigator.router.getStateForAction(
 	firstAction,
 );
