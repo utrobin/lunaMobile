@@ -2,10 +2,10 @@ import React from 'react';
 import { connect } from 'react-redux';
 import {addNavigationHelpers, StackNavigator} from 'react-navigation';
 import RegistrationScreen from '../components/RegistrationScreen/RegistrationScreen';
-import Home from '../components/Home/Home';
+import {BottomTabNavigator} from "./TabNavigator";
 
 export const AppNavigator = StackNavigator({
-	Home: {screen: Home},
+	Home: {screen: BottomTabNavigator},
 	RegistrationScreen: {screen: RegistrationScreen},
 });
 

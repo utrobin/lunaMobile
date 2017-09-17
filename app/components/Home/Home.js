@@ -1,8 +1,7 @@
 import React from 'react';
-import {StyleSheet, View, AppRegistry} from 'react-native';
+import {StyleSheet, View, Button} from 'react-native';
 import {connect} from 'react-redux';
-import {Button, Text} from 'native-base';
-import Test from '../App/App';
+import {Text} from 'native-base';
 
 const styles = StyleSheet.create({
 	container: {
