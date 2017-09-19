@@ -3,6 +3,7 @@ import {StyleSheet, View, Image} from 'react-native';
 import {connect} from 'react-redux';
 import {Text, FlatList, ActivityIndicator} from "react-native";
 import {List} from "react-native-elements";
+import {LOADING_FINISHED, LOADING_STARTED} from "../../modules/loading/loading.constants";
 
 const styles = StyleSheet.create({
     container: {
@@ -25,21 +26,8 @@ class Feed extends React.Component {
         ),
     };
 
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            loading: false,
-            data: [],
-            page: 1,
-            seed: 1,
-            error: null,
-            refreshing: false,
-        };
-    }
-
     render() {
-        if (this.state.loading) {
+        if (this.props.loadingReducer.loading) {
             return (
                 <ActivityIndicator animating size="large" style={styles.container}/>
             )
@@ -48,12 +36,12 @@ class Feed extends React.Component {
             return (
                 <List>
                     <FlatList
-                        data={this.state.data}
+                        data={this.props.loadingReducer.data}
                         renderItem={({item}) => (
                             <Image style={{width: 350, height: 350, alignItems: 'center'}}
-                                   source={{uri: 'http://www.nice.com/PublishingImages/Career%20images/J---HR_Page-4st-strip-green-hair%20(2).png?RenditionID=-1'}}/>
+                                   source={{uri: item.picture.large}}/>
                         )}
-                        keyExtractor={item => item.email}
+                        keyExtractor={item => item.login.username}  // Unique field for each element
                     />
                 </List>
             );
@@ -61,25 +49,19 @@ class Feed extends React.Component {
     }
 
     componentDidMount() {
+        this.props.startLoading();
         this.makeRemoteRequest();
     }
 
     makeRemoteRequest = () => {
-        const {page, seed} = this.state;
-        const url = `https://randomuser.me/api/?seed=${seed}&page=${page}&results=20`;
-        this.setState({loading: true});
+        const url = `https://randomuser.me/api/?seed=1&page=1&results=20`;
         fetch(url)
             .then(res => res.json())
             .then(res => {
-                this.setState({
-                    data: page === 1 ? res.results : [...this.state.data, ...res.results],
-                    error: res.error || null,
-                    loading: false,
-                    refreshing: false
-                });
+                this.props.finishLoading(res.results)
             })
             .catch(error => {
-                this.setState({error, loading: false});
+                console.log("Request failed!");
             });
     };
 }
@@ -87,7 +69,14 @@ class Feed extends React.Component {
 const mapStateToProps = (state) => state;
 
 function mapDispatchToProps(dispatch) {
-    return {};
+    return {
+        startLoading() {
+            dispatch({type: LOADING_STARTED, data: []});
+        },
+        finishLoading(data) {
+            dispatch({type: LOADING_FINISHED, data: data});
+        },
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);
