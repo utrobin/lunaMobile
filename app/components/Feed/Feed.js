@@ -1,7 +1,9 @@
 import React from 'react';
 import {StyleSheet, View, Image} from 'react-native';
 import {connect} from 'react-redux';
-import {Text} from 'native-base';
+import {Text, FlatList, ActivityIndicator} from "react-native";
+import {List} from "react-native-elements";
+import {LOADING_FINISHED, LOADING_STARTED} from "../../modules/loading/loading.constants";
 
 const styles = StyleSheet.create({
     container: {
@@ -25,18 +27,56 @@ class Feed extends React.Component {
     };
 
     render() {
-        return (
-            <View style={styles.container}>
-                <Text>Feed</Text>
-            </View>
-        );
+        if (this.props.loadingReducer.loading) {
+            return (
+                <ActivityIndicator animating size="large" style={styles.container}/>
+            )
+        }
+        else {
+            return (
+                <List>
+                    <FlatList
+                        data={this.props.loadingReducer.data}
+                        renderItem={({item}) => (
+                            <Image style={{width: 350, height: 350, alignItems: 'center'}}
+                                   source={{uri: item.picture.large}}/>
+                        )}
+                        keyExtractor={item => item.login.username}  // Unique field for each element
+                    />
+                </List>
+            );
+        }
     }
+
+    componentDidMount() {
+        this.props.startLoading();
+        this.makeRemoteRequest();
+    }
+
+    makeRemoteRequest = () => {
+        const url = `https://randomuser.me/api/?seed=1&page=1&results=20`;
+        fetch(url)
+            .then(res => res.json())
+            .then(res => {
+                this.props.finishLoading(res.results)
+            })
+            .catch(error => {
+                console.log("Request failed!");
+            });
+    };
 }
 
 const mapStateToProps = (state) => state;
 
 function mapDispatchToProps(dispatch) {
-    return {};
+    return {
+        startLoading() {
+            dispatch({type: LOADING_STARTED, data: []});
+        },
+        finishLoading(data) {
+            dispatch({type: LOADING_FINISHED, data: data});
+        },
+    };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);

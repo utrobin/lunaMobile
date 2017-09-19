@@ -3,6 +3,7 @@ import {handleActions} from 'redux-actions';
 import { NavigationActions } from 'react-navigation';
 import {FormReducer, reducer as formReducer} from 'redux-form';
 import {AppNavigator} from '../../navigators/AppNavigator';
+import loadingReducer from '../loading/loading.reducer'
 
 const initialS = 'Redux';
 
@@ -51,6 +52,7 @@ function nav(state = initialNavState, action) {
 
 const rootReducer = combineReducers({
 	nav,
+	loadingReducer,
 	value,
 	form: formReducer,
 });
