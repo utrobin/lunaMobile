@@ -1,0 +1,1 @@
+export const PEOPLE_ADD_DATA = 'PEOPLE_ADD_DATA';

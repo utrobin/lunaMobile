@@ -18,7 +18,7 @@ class Map extends React.Component {
         // Note: By default the icon is only shown on iOS. Search the showIcon option below.
         tabBarIcon: ({ tintColor }) => (
             <Image
-                 source={require('../ic_map_black_24dp_2x.png')}
+                 source={require('../../assets/img/ic_map_black_24dp_2x.png')}
                  style={[styles.icon, {tintColor: tintColor, width: 25, height: 25}]}
             />
         ),

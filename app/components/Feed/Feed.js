@@ -3,7 +3,8 @@ import {StyleSheet, View, Image} from 'react-native';
 import {connect} from 'react-redux';
 import {Text, FlatList, ActivityIndicator} from "react-native";
 import {List} from "react-native-elements";
-import {LOADING_FINISHED, LOADING_STARTED} from "../../modules/loading/loading.constants";
+import {getPeopleFinish} from "../../modules/people/people.actions";
+import {pushLoading, popLoading} from "../../modules/loading/loading.actions";
 
 const styles = StyleSheet.create({
     container: {
@@ -20,14 +21,14 @@ class Feed extends React.Component {
         // Note: By default the icon is only shown on iOS. Search the showIcon option below.
         tabBarIcon: ({tintColor}) => (
             <Image
-                source={require('../ic_home_black_24dp_2x.png')}
+                source={require('../../assets/img/ic_home_black_24dp_2x.png')}
                 style={[styles.icon, {tintColor: tintColor, width: 25, height: 25}]}
             />
         ),
     };
 
     render() {
-        if (this.props.loadingReducer.loading) {
+        if (this.props.loading.value) {
             return (
                 <ActivityIndicator animating size="large" style={styles.container}/>
             )
@@ -36,7 +37,7 @@ class Feed extends React.Component {
             return (
                 <List>
                     <FlatList
-                        data={this.props.loadingReducer.data}
+                        data={this.props.people}
                         renderItem={({item}) => (
                             <Image style={{width: 350, height: 350, alignItems: 'center'}}
                                    source={{uri: item.picture.large}}/>
@@ -49,7 +50,7 @@ class Feed extends React.Component {
     }
 
     componentDidMount() {
-        this.props.startLoading();
+        this.props.pushLoading();
         this.makeRemoteRequest();
     }
 
@@ -58,7 +59,8 @@ class Feed extends React.Component {
         fetch(url)
             .then(res => res.json())
             .then(res => {
-                this.props.finishLoading(res.results)
+                this.props.getPeopleFinish(res.results);
+	              this.props.popLoading();
             })
             .catch(error => {
                 console.log("Request failed!");
@@ -70,11 +72,11 @@ const mapStateToProps = (state) => state;
 
 function mapDispatchToProps(dispatch) {
     return {
-        startLoading() {
-            dispatch({type: LOADING_STARTED, data: []});
-        },
-        finishLoading(data) {
-            dispatch({type: LOADING_FINISHED, data: data});
+        pushLoading() {dispatch(pushLoading)},
+	      popLoading() {dispatch(popLoading)},
+
+	      getPeopleFinish(data) {
+            dispatch(getPeopleFinish(data));
         },
     };
 }

@@ -1,2 +1,2 @@
-export const LOADING_STARTED = 'LOADING_STARTED';
-export const LOADING_FINISHED = 'LOADING_FINISHED';
+export const LOADING_PUSH = 'LOADING_PUSH';
+export const LOADING_POP = 'LOADING_POP';

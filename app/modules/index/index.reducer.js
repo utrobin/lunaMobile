@@ -1,17 +1,9 @@
 import {combineReducers} from 'redux';
-import {handleActions} from 'redux-actions';
 import { NavigationActions } from 'react-navigation';
 import {FormReducer, reducer as formReducer} from 'redux-form';
 import {AppNavigator} from '../../navigators/AppNavigator';
-import loadingReducer from '../loading/loading.reducer'
-
-const initialS = 'Redux';
-
-const value = handleActions({
-	['TEST']: (state) => state + 1,
-}, initialS);
-
-console.log(AppNavigator);
+import people from '../people/people.reducer';
+import loading from '../loading/loading.reducers';
 
 const firstAction=AppNavigator.router.getStateForAction(NavigationActions.reset({
     index: 0,
@@ -51,9 +43,9 @@ function nav(state = initialNavState, action) {
 }
 
 const rootReducer = combineReducers({
+	loading,
 	nav,
-	loadingReducer,
-	value,
+	people,
 	form: formReducer,
 });
 
