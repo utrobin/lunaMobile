@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, CardItem, Left, Right, Body, Icon } from 'native-base';
 
@@ -18,14 +18,17 @@ const styles = StyleSheet.create({
   },
   options: {
     flex: 0.1,
+    width: 20,
   },
   main_image: {
     width: 350,
     height: 300,
     alignItems: 'center',
   },
-  likes: {
+  likes_container: {
     flex: 0.25,
+  },
+  likes: {
     flexDirection: 'row',
     alignItems: 'center',
   },
@@ -33,14 +36,26 @@ const styles = StyleSheet.create({
     flex: 0.5,
     textAlign: 'center',
   },
-  save: {
+  save_container: {
     flex: 0.25,
-    textAlign: 'right',
+    alignItems: 'flex-end',
   },
 });
 
 // eslint-disable-next-line
 class ListItem extends React.Component {
+  onOptionsClicked = () => {
+    console.log('Options clicked!');
+  };
+
+  onLikesClicked = () => {
+    console.log('Likes clicked!');
+  };
+
+  onSaveClicked = () => {
+    console.log('Save clicked!');
+  };
+
   render() {
     return (
       <Card>
@@ -55,9 +70,9 @@ class ListItem extends React.Component {
               <Text style={styles.header_location}>Рядом с метро Курская</Text>
             </Body>
           </Left>
-          <Right style={styles.options}>
-            <Icon name="list" />
-          </Right>
+          <TouchableHighlight onPress={this.onOptionsClicked}>
+            <Icon style={styles.options} name="list" />
+          </TouchableHighlight>
         </CardItem>
         <CardItem>
           <Image
@@ -67,14 +82,18 @@ class ListItem extends React.Component {
         </CardItem>
 
         <CardItem>
-          <View style={styles.likes}>
-            <Icon name="ios-heart" />
-            <Text>1.99k</Text>
-          </View>
+          <TouchableHighlight style={styles.likes_container} onPress={this.onLikesClicked}>
+            <View style={styles.likes}>
+              <Icon name="ios-heart" />
+              <Text>1.99k</Text>
+            </View>
+          </TouchableHighlight>
 
           <Text style={styles.dots}>Точечки</Text>
 
-          <Icon name="book" style={styles.save} />
+          <TouchableHighlight style={styles.save_container} onPress={this.onSaveClicked}>
+            <Icon name="book" />
+          </TouchableHighlight>
         </CardItem>
       </Card>
     );
