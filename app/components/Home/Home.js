@@ -1,48 +1,51 @@
 import React from 'react';
-import {StyleSheet, View, Button} from 'react-native';
-import {connect} from 'react-redux';
-import {Text} from 'native-base';
+import { StyleSheet, View, Button } from 'react-native';
+import { connect } from 'react-redux';
+import { Text } from 'native-base';
 
 const styles = StyleSheet.create({
-	container: {
-		flex: 1,
-		backgroundColor: '#fff',
-		padding: 10,
-		justifyContent: 'center',
-	},
-    regBtn: {
-	    marginTop: 25,
-    }
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    padding: 10,
+    justifyContent: 'center',
+  },
+  regBtn: {
+    marginTop: 25,
+  },
 });
 
 class Home extends React.Component {
-	static navigationOptions = {
-		title: 'Luna',
-	};
+ static navigationOptions = {
+   title: 'Luna',
+ };
 
-	render() {
-		return (
-			<View style={styles.container}>
-				<Text>Добро пожаловать в проект Луна!</Text>
-				<Text>Ниже вы можете приступить к регистрации</Text>
+ render() {
+   return (
+     <View style={styles.container}>
+       <Text>Добро пожаловать в проект Луна!</Text>
+       <Text>Ниже вы можете приступить к регистрации</Text>
 
-				<Button style={styles.regBtn}
-					onPress={() => this.props.navigateRegistration()} block>
-					<Text>Регистрация</Text>
-				</Button>
-			</View>
-		);
-	}
+       <Button
+         style={styles.regBtn}
+         onPress={() => this.props.navigateRegistration()}
+         block
+       >
+         <Text>Регистрация</Text>
+       </Button>
+     </View>
+   );
+ }
 }
 
-const mapStateToProps = (state) => state;
+const mapStateToProps = state => state;
 
 function mapDispatchToProps(dispatch) {
-	return {
-		navigateRegistration() {
-			dispatch({type: 'RegistrationScreen'});
-		},
-	};
+  return {
+    navigateRegistration() {
+      dispatch({ type: 'RegistrationScreen' });
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
