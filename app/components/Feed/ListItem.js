@@ -1,7 +1,7 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, CardItem, Left, Right, Body, Icon } from 'native-base';
+import { Card, CardItem, Left, Body, Icon } from 'native-base';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -43,6 +43,7 @@ const styles = StyleSheet.create({
 });
 
 // eslint-disable-next-line
+/*eslint no-console: ["error", { allow: ["log"] }] */
 class ListItem extends React.Component {
   onOptionsClicked = () => {
     console.log('Options clicked!');
@@ -57,6 +58,7 @@ class ListItem extends React.Component {
   };
 
   render() {
+    const { item } = this.props;
     return (
       <Card>
         <CardItem>
@@ -77,7 +79,7 @@ class ListItem extends React.Component {
         <CardItem>
           <Image
             style={styles.main_image}
-            source={{ uri: 'https://github.com/ppsreejith.png?size=200' }}
+            source={{ uri: item.picture.large }}
           />
         </CardItem>
 

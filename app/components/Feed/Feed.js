@@ -3,6 +3,7 @@ import { StyleSheet, Image, FlatList, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { getPeopleFinish } from '../../modules/people/people.actions';
 import { pushLoading, popLoading } from '../../modules/loading/loading.actions';
+import { pushRefreshing, popRefreshing } from '../../modules/refreshing/refreshing.actions';
 import ListItem from './ListItem';
 import imgHome from '../../assets/img/ic_home_black_24dp_2x.png';
 
@@ -33,7 +34,8 @@ class Feed extends React.Component {
     }
 
     makeRemoteRequest = () => {
-      const url = 'https://randomuser.me/api/?seed=1&page=1&results=20';
+      const seed = Math.floor(Math.random() * (300));
+      const url = `https://randomuser.me/api/?seed=${seed}&page=1&results=20`;
 
       // eslint-disable-next-line
       fetch(url)
@@ -41,11 +43,17 @@ class Feed extends React.Component {
         .then((res) => {
           this.props.getPeopleFinish(res.results);
           this.props.popLoading();
+          this.props.popRefreshing();
         });
     };
 
+    handleRefresh = () => {
+      this.props.pushRefreshing();
+      this.makeRemoteRequest();
+    };
+
     render() {
-      const { loading, people } = this.props;
+      const { loading, people, refreshing } = this.props;
 
       if (loading.value) {
         return (
@@ -56,10 +64,12 @@ class Feed extends React.Component {
       return (
         <FlatList
           data={people}
-          renderItem={() => (
-            <ListItem />
+          renderItem={({ item }) => (
+            <ListItem item={item} />
           )}
           keyExtractor={item => item.login.username} // Unique field for each element
+          refreshing={refreshing.value}
+          onRefresh={this.handleRefresh}
         />
 
       );
@@ -76,6 +86,14 @@ function mapDispatchToProps(dispatch) {
     popLoading() {
       dispatch(popLoading);
     },
+
+    pushRefreshing() {
+      dispatch(pushRefreshing);
+    },
+    popRefreshing() {
+      dispatch(popRefreshing);
+    },
+
 
     getPeopleFinish(data) {
       dispatch(getPeopleFinish(data));
