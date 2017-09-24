@@ -45,7 +45,9 @@ class Feed extends React.Component {
     };
 
     render() {
-      if (this.props.loading.value) {
+      const { loading, people } = this.props;
+
+      if (loading.value) {
         return (
           <ActivityIndicator animating size="large" style={styles.container} />
         );
@@ -53,7 +55,7 @@ class Feed extends React.Component {
 
       return (
         <FlatList
-          data={this.props.people}
+          data={people}
           renderItem={() => (
             <ListItem />
           )}
