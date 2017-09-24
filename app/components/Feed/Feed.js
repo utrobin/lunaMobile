@@ -1,10 +1,10 @@
 import React from 'react';
 import {StyleSheet, View, Image} from 'react-native';
 import {connect} from 'react-redux';
-import {Text, FlatList, ActivityIndicator} from "react-native";
-import {List} from "react-native-elements";
+import {FlatList, ActivityIndicator} from "react-native";
 import {getPeopleFinish} from "../../modules/people/people.actions";
 import {pushLoading, popLoading} from "../../modules/loading/loading.actions";
+import ListItem from './ListItem';
 
 const styles = StyleSheet.create({
     container: {
@@ -35,17 +35,14 @@ class Feed extends React.Component {
         }
         else {
             return (
-                <List>
-                    <FlatList
-                        data={this.props.people}
-                        renderItem={({item}) => (
-                            <Image style={{width: 350, height: 350, alignItems: 'center'}}
-                                   source={{uri: item.picture.large}}/>
-                        )}
-                        keyExtractor={item => item.login.username}  // Unique field for each element
-                    />
-                </List>
-            );
+                <FlatList
+                    data={this.props.people}
+                    renderItem={({item}) => (
+                        <ListItem/>
+                    )}
+                    keyExtractor={item => item.login.username} // Unique field for each element
+                />
+            )
         }
     }
 
@@ -60,10 +57,10 @@ class Feed extends React.Component {
             .then(res => res.json())
             .then(res => {
                 this.props.getPeopleFinish(res.results);
-	              this.props.popLoading();
+                this.props.popLoading();
             })
             .catch(error => {
-                console.log("Request failed!");
+                console.log("Request failed! " + error);
             });
     };
 }
@@ -72,10 +69,14 @@ const mapStateToProps = (state) => state;
 
 function mapDispatchToProps(dispatch) {
     return {
-        pushLoading() {dispatch(pushLoading)},
-	      popLoading() {dispatch(popLoading)},
+        pushLoading() {
+            dispatch(pushLoading)
+        },
+        popLoading() {
+            dispatch(popLoading)
+        },
 
-	      getPeopleFinish(data) {
+        getPeopleFinish(data) {
             dispatch(getPeopleFinish(data));
         },
     };
