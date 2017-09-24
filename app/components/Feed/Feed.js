@@ -1,9 +1,8 @@
 import React from 'react';
-import {StyleSheet, View, Image} from 'react-native';
-import {connect} from 'react-redux';
-import {FlatList, ActivityIndicator} from "react-native";
-import {getPeopleFinish} from "../../modules/people/people.actions";
-import {pushLoading, popLoading} from "../../modules/loading/loading.actions";
+import { StyleSheet, Image, FlatList, ActivityIndicator } from 'react-native';
+import { connect } from 'react-redux';
+import { getPeopleFinish } from '../../modules/people/people.actions';
+import { pushLoading, popLoading } from '../../modules/loading/loading.actions';
 import ListItem from './ListItem';
 import imgHome from '../../assets/img/ic_home_black_24dp_2x.png';
 
@@ -46,40 +45,40 @@ class Feed extends React.Component {
     };
 
     render() {
-        if (this.props.loading.value) {
-            return (
-                <ActivityIndicator animating size="large" style={styles.container}/>
-            );
-        }
+      if (this.props.loading.value) {
+        return (
+          <ActivityIndicator animating size="large" style={styles.container} />
+        );
+      }
 
-            return (
-                <FlatList
-                        data={this.props.people}
-                        renderItem={({item}) => (
-                            <ListItem/>
-                        )}
-                        keyExtractor={item => item.login.username}  // Unique field for each element
-                    />
+      return (
+        <FlatList
+          data={this.props.people}
+          renderItem={() => (
+            <ListItem />
+          )}
+          keyExtractor={item => item.login.username} // Unique field for each element
+        />
 
-            )
-        }
+      );
     }
+}
 
 const mapStateToProps = state => state;
 
 function mapDispatchToProps(dispatch) {
-    return {
-        pushLoading() {
-            dispatch(pushLoading)
-        },
-        popLoading() {
-            dispatch(popLoading)
-        },
+  return {
+    pushLoading() {
+      dispatch(pushLoading);
+    },
+    popLoading() {
+      dispatch(popLoading);
+    },
 
-	      getPeopleFinish(data) {
-            dispatch(getPeopleFinish(data));
-        },
-    };
+    getPeopleFinish(data) {
+      dispatch(getPeopleFinish(data));
+    },
+  };
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Feed);
