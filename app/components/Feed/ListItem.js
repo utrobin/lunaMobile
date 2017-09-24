@@ -33,16 +33,14 @@ class ListItem extends React.Component {
 
         <CardItem style={{ flex: 1, justifyContent: 'space-between' }}>
 
-          {/* TODO Align 'Точечки' to screen's center */}
-
-          <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+          <View style={{ flex: 0.25, flexDirection: 'row', alignItems: 'center' }}>
             <Icon name="ios-heart" />
-            <Text>1.9999k</Text>
+            <Text>1.99k</Text>
           </View>
 
-          <Text>Точечки</Text>
+          <Text style={{ flex: 0.5, textAlign: 'center' }}>Точечки</Text>
 
-          <Icon name="book" />
+          <Icon name="book" style={{ flex: 0.25, textAlign: 'right' }} />
 
         </CardItem>
       </Card>
