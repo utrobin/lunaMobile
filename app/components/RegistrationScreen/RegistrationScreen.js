@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { reduxForm, Field } from 'redux-form';
 import { Button, Text, Form, Item, Label, Input } from 'native-base';
 

@@ -34,14 +34,13 @@ class Feed extends React.Component {
 
     makeRemoteRequest = () => {
       const url = 'https://randomuser.me/api/?seed=1&page=1&results=20';
+
+      // eslint-disable-next-line
       fetch(url)
         .then(res => res.json())
         .then((res) => {
           this.props.getPeopleFinish(res.results);
           this.props.popLoading();
-        })
-        .catch(() => {
-          console.log('Request failed!');
         });
     };
 

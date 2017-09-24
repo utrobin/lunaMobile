@@ -1,7 +1,4 @@
-import {
-  LOADING_PUSH,
-  LOADING_POP,
-} from './loading.constants.js';
+import { LOADING_PUSH, LOADING_POP } from './loading.constants';
 
 const pushLoading = { type: LOADING_PUSH };
 

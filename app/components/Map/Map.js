@@ -36,9 +36,4 @@ class Map extends React.Component {
 
 const mapStateToProps = state => state;
 
-function mapDispatchToProps(dispatch) {
-  return {
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Map);
+export default connect(mapStateToProps)(Map);

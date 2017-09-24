@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Text } from 'native-base';
+import imgSettings from '../../assets/img/ic_settings_black_24dp_2x.png';
 
 const styles = StyleSheet.create({
   container: {
@@ -18,7 +19,7 @@ class Preferences extends React.Component {
       // Note: By default the icon is only shown on iOS. Search the showIcon option below.
       tabBarIcon: ({ tintColor }) => (
         <Image
-          source={require('../../assets/img/ic_settings_black_24dp_2x.png')}
+          source={imgSettings}
           style={[styles.icon, { tintColor, width: 25, height: 25 }]}
         />
       ),
@@ -35,9 +36,4 @@ class Preferences extends React.Component {
 
 const mapStateToProps = state => state;
 
-function mapDispatchToProps(dispatch) {
-  return {
-  };
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(Preferences);
+export default connect(mapStateToProps)(Preferences);
