@@ -2,6 +2,7 @@ import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, CardItem, Left, Body, Icon } from 'native-base';
+import ImageSlider from 'react-native-image-slider';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -25,20 +26,13 @@ const styles = StyleSheet.create({
     height: 300,
     alignItems: 'center',
   },
-  likes_container: {
-    flex: 0.25,
+  footer: {
+    justifyContent: 'space-between',
+    paddingLeft: 20,
   },
   likes: {
     flexDirection: 'row',
     alignItems: 'center',
-  },
-  dots: {
-    flex: 0.5,
-    textAlign: 'center',
-  },
-  save_container: {
-    flex: 0.25,
-    alignItems: 'flex-end',
   },
 });
 
@@ -58,7 +52,7 @@ class ListItem extends React.Component {
   };
 
   render() {
-    const { item } = this.props;
+    // const { item } = this.props;
     return (
       <Card>
         <CardItem>
@@ -77,23 +71,26 @@ class ListItem extends React.Component {
           </TouchableHighlight>
         </CardItem>
         <CardItem>
-          <Image
-            style={styles.main_image}
-            source={{ uri: item.picture.large }}
+          <ImageSlider
+            height={250}
+            images={[
+              'https://i.pinimg.com/736x/8f/56/77/8f56773001b9590da809282d7bfa0cbe--classy-nails-pretty-nails.jpg',
+              'https://i.pinimg.com/736x/06/cf/58/06cf5862dac2a181b70e81cd7efa9060--on-my-own-simple-nails.jpg',
+              'https://i.pinimg.com/736x/28/81/bc/2881bcfcdfe55bb246b54a9b5ff02741--beautiful-manicure.jpg',
+            ]}
           />
         </CardItem>
 
-        <CardItem>
-          <TouchableHighlight style={styles.likes_container} onPress={this.onLikesClicked}>
+        <CardItem style={styles.footer}>
+          <TouchableHighlight onPress={this.onLikesClicked}>
             <View style={styles.likes}>
               <Icon name="ios-heart" />
               <Text>1.99k</Text>
             </View>
           </TouchableHighlight>
 
-          <Text style={styles.dots}>Точечки</Text>
 
-          <TouchableHighlight style={styles.save_container} onPress={this.onSaveClicked}>
+          <TouchableHighlight onPress={this.onSaveClicked}>
             <Icon name="book" />
           </TouchableHighlight>
         </CardItem>
