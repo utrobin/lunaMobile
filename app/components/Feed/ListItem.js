@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, Image, TouchableHighlight } from 'react-native';
+import { StyleSheet, Text, View, Image, TouchableHighlight, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, CardItem, Left, Body, Icon } from 'native-base';
 import ImageSlider from 'react-native-image-slider';
@@ -40,7 +40,15 @@ const styles = StyleSheet.create({
 /*eslint no-console: ["error", { allow: ["log"] }] */
 class ListItem extends React.Component {
   onOptionsClicked = () => {
-    console.log('Options clicked!');
+    Alert.alert(
+      'Title',
+      'Choose any option',
+      [
+        { text: 'Option #1', onPress: () => console.log('Option #1 pressed') },
+        { text: 'Option #2', onPress: () => console.log('Option #2 pressed') },
+        { text: 'Option #3', onPress: () => console.log('Option #3 pressed') },
+      ],
+    );
   };
 
   onLikesClicked = () => {
