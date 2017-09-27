@@ -3,6 +3,7 @@ import { StyleSheet, Text, View, Image, TouchableHighlight, Alert } from 'react-
 import { connect } from 'react-redux';
 import { Card, CardItem, Left, Body, Icon } from 'native-base';
 import ImageSlider from 'react-native-image-slider';
+import { like, dislike } from '../../modules/likes/likes.actions';
 
 const styles = StyleSheet.create({
   avatar: {
@@ -52,7 +53,7 @@ class ListItem extends React.Component {
   };
 
   onLikesClicked = () => {
-    console.log('Likes clicked!');
+    this.props.like();
   };
 
   onSaveClicked = () => {
@@ -61,6 +62,16 @@ class ListItem extends React.Component {
 
   render() {
     // const { item } = this.props;
+
+    let likeView = null;
+
+    if (this.props.likes.value) {
+      likeView = <Icon style={{ color: 'red' }} name="ios-heart" />;  // типа лайкнул
+    } else {
+      this.props.like();
+      likeView = <Icon name="heart" />;  // а эта дефолтная
+    }
+
     return (
       <Card>
         <CardItem>
@@ -92,7 +103,7 @@ class ListItem extends React.Component {
         <CardItem style={styles.footer}>
           <TouchableHighlight onPress={this.onLikesClicked}>
             <View style={styles.likes}>
-              <Icon name="ios-heart" />
+              { likeView }
               <Text>1.99k</Text>
             </View>
           </TouchableHighlight>
@@ -109,4 +120,16 @@ class ListItem extends React.Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps)(ListItem);
+
+function mapDispatchToProps(dispatch) {
+  return {
+    like() {
+      dispatch(like);
+    },
+    dislike() {
+      dispatch(dislike);
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListItem);
