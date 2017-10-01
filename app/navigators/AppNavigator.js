@@ -3,10 +3,12 @@ import { connect } from 'react-redux';
 import { addNavigationHelpers, StackNavigator } from 'react-navigation';
 import RegistrationScreen from '../components/RegistrationScreen/RegistrationScreen';
 import { BottomTabNavigator } from './TabNavigator';
+import MasterScreen from "../components/Master/MasterScreen";
 
 export const AppNavigator = StackNavigator({
   Home: { screen: BottomTabNavigator },
   RegistrationScreen: { screen: RegistrationScreen },
+	MasterScreen: {screen: MasterScreen},
 });
 
 const AppWithNavigationState = ({ dispatch, nav }) => (
