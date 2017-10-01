@@ -3,82 +3,85 @@ import {StyleSheet, View, Image, Text} from 'react-native';
 import {connect} from 'react-redux';
 
 const styles = StyleSheet.create({
-    container: {
-        padding: 10,
-    },
+  container: {
+    padding: 10,
+  },
 
-    header: {
-        flexDirection: 'row',
-        alignItems: 'center',
-    },
+  header: {
+    flexDirection: 'row',
+    alignItems: 'center',
+  },
 
-    headerText: {
-        marginLeft: 15,
-        fontSize: 20,
-    },
+  avatar: {
+    width: 80,
+    height: 80,
+    borderRadius: 40,
+  },
 
-    avatar: {
-        width: 100,
-        height: 100
-    },
+  headerInfo: {
+    flexDirection: 'column',
+    marginLeft: 15,
+  },
 
-    body: {
-        marginTop: 40,
-    }
+  headerName: {
+    fontSize: 18,
+    marginBottom: 5,
+  },
+
+  headerAddress: {
+    fontSize: 14,
+  },
+
+
+  body: {
+    marginTop: 40,
+  }
 });
 
 class MasterScreen extends React.Component {
-    static navigationOptions = {
-        title: 'Ivanov Ivan',
-    };
+  static navigationOptions = {
+    title: 'Master',
+  };
 
-    render() {
-        return (
-            <View style={styles.container}>
-                <Header/>
-                <Body/>
-            </View>
-        );
-    }
+  render() {
+    return (
+      <View style={styles.container}>
+        <View style={styles.header}>
+          <Image style={styles.avatar}
+                 source={{uri: 'http://cdn-img.instyle.com/sites/default/files/styles/276x276/public/images/2014/TRANSFORMATIONS/2009b-megan-fox-567_0.jpg?itok=Ex_Uv619'}}/>
+          <View style={styles.headerInfo}>
+            <Text style={styles.headerName}>Megan Fox</Text>
+            <Text style={styles.headerAddress}>Hollywood, Los Angeles, California</Text>
+          </View>
+        </View>
+        <Body/>
+      </View>
+    );
+  }
 }
 
-
-class Header extends React.Component {
-    render() {
-        return (
-            <View style={styles.header}>
-                <Image style={styles.avatar}
-                       source={{uri: 'https://s3.amazonaws.com/media-p.slid.es/uploads/jhabdas/images/969312/react-logo-1000-transparent.png'}}/>
-                <Text style={styles.headerText}>This is a short description</Text>
-            </View>
-        );
-    }
-}
 
 class Body extends React.Component {
-    render() {
-        return (
-            <View style={styles.body}>
-                <Text>Te conocí un día de abril, un día común,
-                    el día que menos lo esperaba.
-                    Yo no pensaba en el amor, ni lo creía
-                    y mucho menos lo buscaba.
-
-                    Y de pronto apareciste tú,
-                    destrozando paredes e ideas te volviste mi luz.
-
-                    Yo no sabía que con un beso
-                    se podría parar el tiempo y lo aprendí de ti…</Text>
-            </View>
-        );
-    }
+  render() {
+    return (
+      <CardItem>
+        <ImageSlider
+          height={250}
+          images={[
+            'https://i.pinimg.com/736x/8f/56/77/8f56773001b9590da809282d7bfa0cbe--classy-nails-pretty-nails.jpg',
+            'https://i.pinimg.com/736x/06/cf/58/06cf5862dac2a181b70e81cd7efa9060--on-my-own-simple-nails.jpg',
+            'https://i.pinimg.com/736x/28/81/bc/2881bcfcdfe55bb246b54a9b5ff02741--beautiful-manicure.jpg',
+          ]}
+        />
+    );
+  }
 }
 
 
 const mapStateToProps = (state) => state;
 
 function mapDispatchToProps(dispatch) {
-    return {};
+  return {};
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(MasterScreen);
