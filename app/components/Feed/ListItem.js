@@ -123,7 +123,7 @@ class ListItem extends React.Component {
         <View style={styles.icons_bar}>
           <Image style={styles.sign} source={{ uri: 'https://image.freepik.com/free-icon/share-circle_318-28815.jpg' }} />
           <Image style={styles.sign} source={{ uri: 'https://image.freepik.com/free-icon/phone-symbol-of-an-auricular-inside-a-circle_318-50305.jpg' }} />
-          <Image style={styles.sign} source={{ uri: 'https://s-media-cache-ak0.pinimg.com/originals/79/d0/01/79d0013e6709267f89a1389e604cb051.png'}} />
+          <Image style={styles.sign} source={{ uri: 'https://s-media-cache-ak0.pinimg.com/originals/79/d0/01/79d0013e6709267f89a1389e604cb051.png' }} />
           <Image style={styles.sign} source={{ uri: 'https://upload.wikimedia.org/wikipedia/commons/0/0c/Facebook%2BIcon%2BBlack.png' }} />
           <Image style={styles.sign} source={{ uri: 'http://www.iconsdb.com/icons/preview/black/vk-xxl.png' }} />
         </View>

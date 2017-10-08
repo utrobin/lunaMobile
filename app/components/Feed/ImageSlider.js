@@ -185,7 +185,7 @@ export default class ImageSlider extends Component {
           </View>))}
         </View>
 
-        <Button transparent style={styles.likes} onPress={() => console.log('Rate')}>
+        <Button transparent style={styles.likes} onPress={() => console.log('Save')}>
           <Icon active name="book" />
         </Button>
 
