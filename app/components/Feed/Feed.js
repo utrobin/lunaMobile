@@ -10,8 +10,6 @@ import imgHome from '../../assets/img/ic_home_black_24dp_2x.png';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 10,
     justifyContent: 'center',
   },
 });
