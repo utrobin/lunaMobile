@@ -1,9 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableHighlight, Alert } from 'react-native';
 import { connect } from 'react-redux';
-import { Card, Left, Icon, Right, Button } from 'native-base';
-import ImageSlider from 'react-native-image-slider';
+import { Card, Left, Icon } from 'native-base';
 import { defaultFontSize } from '../../assets/Constants';
+import ImageSlider from './ImageSlider';
 
 const styles = StyleSheet.create({
   header: {
@@ -55,6 +55,26 @@ const styles = StyleSheet.create({
   likes: {
     flexDirection: 'row',
     alignItems: 'center',
+  },
+  buttons: {
+    height: 15,
+    marginTop: 10,
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+  },
+  button: {
+    margin: 3,
+    width: 8,
+    height: 8,
+    borderRadius: 8 / 2,
+    backgroundColor: '#bdbdbd',
+    opacity: 0.9,
+  },
+  buttonSelected: {
+    opacity: 1,
+    backgroundColor: '#000000',
   },
 });
 
@@ -117,20 +137,6 @@ class ListItem extends React.Component {
             'https://i.pinimg.com/736x/28/81/bc/2881bcfcdfe55bb246b54a9b5ff02741--beautiful-manicure.jpg',
           ]}
         />
-
-
-        <View style={styles.footer}>
-          <Button transparent style={styles.likes} onPress={() => console.log('Rate')}>
-            <Icon active name="star" />
-            <Text>4.8</Text>
-          </Button>
-
-          <Right>
-            <Button transparent style={styles.likes} onPress={() => console.log('Rate')}>
-              <Icon active name="book" />
-            </Button>
-          </Right>
-        </View>
       </Card>
     );
   }
