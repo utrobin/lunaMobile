@@ -1,16 +1,15 @@
 import React from 'react';
 import { StyleSheet, Image, FlatList, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
-import { List } from 'react-native-elements';
 import { getPeopleFinish } from '../../modules/people/people.actions';
 import { pushLoading, popLoading } from '../../modules/loading/loading.actions';
+import { pushRefreshing, popRefreshing } from '../../modules/refreshing/refreshing.actions';
+import ListItem from './ListItem';
 import imgHome from '../../assets/img/ic_home_black_24dp_2x.png';
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 10,
     justifyContent: 'center',
   },
 });
@@ -33,7 +32,8 @@ class Feed extends React.Component {
     }
 
     makeRemoteRequest = () => {
-      const url = 'https://randomuser.me/api/?seed=1&page=1&results=20';
+      const seed = Math.floor(Math.random() * (300));
+      const url = `https://randomuser.me/api/?seed=${seed}&page=1&results=20`;
 
       // eslint-disable-next-line
       fetch(url)
@@ -41,29 +41,35 @@ class Feed extends React.Component {
         .then((res) => {
           this.props.getPeopleFinish(res.results);
           this.props.popLoading();
+          this.props.popRefreshing();
         });
     };
 
+    handleRefresh = () => {
+      this.props.pushRefreshing();
+      this.makeRemoteRequest();
+    };
+
     render() {
-      if (this.props.loading.value) {
+      const { loading, people, refreshing } = this.props;
+
+      if (loading.value) {
         return (
           <ActivityIndicator animating size="large" style={styles.container} />
         );
       }
 
       return (
-        <List>
-          <FlatList
-            data={this.props.people}
-            renderItem={({ item }) => (
-              <Image
-                style={{ width: 350, height: 350, alignItems: 'center' }}
-                source={{ uri: item.picture.large }}
-              />
-            )}
-            keyExtractor={item => item.login.username} // Unique field for each element
-          />
-        </List>
+        <FlatList
+          data={people}
+          renderItem={({ item }) => (
+            <ListItem item={item} />
+          )}
+          keyExtractor={item => item.login.username} // Unique field for each element
+          refreshing={refreshing.value}
+          onRefresh={this.handleRefresh}
+        />
+
       );
     }
 }
@@ -72,8 +78,20 @@ const mapStateToProps = state => state;
 
 function mapDispatchToProps(dispatch) {
   return {
-    pushLoading() { dispatch(pushLoading); },
-    popLoading() { dispatch(popLoading); },
+    pushLoading() {
+      dispatch(pushLoading);
+    },
+    popLoading() {
+      dispatch(popLoading);
+    },
+
+    pushRefreshing() {
+      dispatch(pushRefreshing);
+    },
+    popRefreshing() {
+      dispatch(popRefreshing);
+    },
+
 
     getPeopleFinish(data) {
       dispatch(getPeopleFinish(data));
