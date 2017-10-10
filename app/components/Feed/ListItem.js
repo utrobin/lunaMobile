@@ -102,7 +102,8 @@ class ListItem extends React.Component {
   };
 
   render() {
-    // const { item } = this.props;
+    const { item } = this.props;
+
     return (
       <Card>
         <View style={styles.header}>

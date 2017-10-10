@@ -1,9 +1,11 @@
 import React from 'react';
-import {StyleSheet, View, AppRegistry} from 'react-native';
-import {Button, Text, Form, Item, Input, Label} from 'native-base';
-import {Provider, connect} from 'react-redux';
+import { ApolloProvider } from 'react-apollo';
+import {Button, Form, Item, Input, Label} from 'native-base';
 import createStore from './app/store/createStore';
+import {client} from './app/modules/index/index.reducer';
 import AppWithNavigationState from './app/navigators/AppNavigator';
+
+GLOBAL.XMLHttpRequest = GLOBAL.originalXMLHttpRequest || GLOBAL.XMLHttpRequest;
 
 const store = createStore();
 
@@ -11,9 +13,9 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<Provider store={store}>
+			<ApolloProvider store={store} client={client}>
 				<AppWithNavigationState />
-			</Provider>
+			</ApolloProvider>
 		);
 	}
 }
