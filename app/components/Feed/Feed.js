@@ -12,8 +12,6 @@ import imgHome from '../../assets/img/ic_home_black_24dp_2x.png';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    padding: 10,
     justifyContent: 'center',
   },
 });
@@ -57,9 +55,9 @@ class Feed extends React.Component {
     render() {
       const { loading, people, refreshing } = this.props;
 
-      const {address, loadingm } = this.props.data;
+      const { address, loading: newLoading } = this.props.data;
 
-      console.log(this.props.data, 555);
+      console.log(address, newLoading, 555);
 
       if (loading.value) {
         return (
