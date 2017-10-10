@@ -153,30 +153,30 @@ export default class ImageSlider extends Component {
       >
         {
           this.props.images.map((image, index) => {
-          const imageObject = typeof image === 'string' ? { uri: image } : image;
+            const imageObject = typeof image === 'string' ? { uri: image } : image;
 
-          const imageComponent = (
-            <Image
-              key={key}
-              source={imageObject}
-              style={{ height, width }}
-            />
-          );
-          key++;
-
-          if (this.props.onPress) {
-            return (
-              <TouchableOpacity
+            const imageComponent = (
+              <Image
+                key={key}
+                source={imageObject}
                 style={{ height, width }}
-                onPress={() => this.props.onPress({ image, index })}
-                delayPressIn={200}
-              >
-                {imageComponent}
-              </TouchableOpacity>
+              />
             );
-          }
-          return imageComponent;
-        })}
+            key += 1;
+
+            if (this.props.onPress) {
+              return (
+                <TouchableOpacity
+                  style={{ height, width }}
+                  onPress={() => this.props.onPress({ image, index })}
+                  delayPressIn={200}
+                >
+                  {imageComponent}
+                </TouchableOpacity>
+              );
+            }
+            return imageComponent;
+          })}
       </ScrollView>
 
       <View style={styles.footer}>
@@ -188,7 +188,7 @@ export default class ImageSlider extends Component {
         <View style={styles.buttons}>
           {
             this.props.images.map((image, index) => {
-              key1--;
+              key1 -= 1;
 
               return (
                 <View
@@ -198,7 +198,7 @@ export default class ImageSlider extends Component {
                 >
                   <View />
                 </View>
-              )
+              );
             })
           }
         </View>

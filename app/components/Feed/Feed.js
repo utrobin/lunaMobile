@@ -1,12 +1,10 @@
 import React from 'react';
-import { StyleSheet, Image, FlatList, ActivityIndicator, View, Text } from 'react-native';
+import { StyleSheet, Image, FlatList, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { graphql, gql } from 'react-apollo';
-import { Button } from 'native-base';
 import { getPeopleFinish } from '../../modules/people/people.actions';
-import { pushLoading, popLoading } from '../../modules/loading/loading.actions';
 import { pushRefreshing, popRefreshing } from '../../modules/refreshing/refreshing.actions';
-import ListItem from './ListItem';
+import ListItem from '../ListItem/ListItem';
 import imgHome from '../../assets/img/ic_home_black_24dp_2x.png';
 
 const styles = StyleSheet.create({
@@ -29,7 +27,6 @@ class Feed extends React.Component {
     };
 
     componentDidMount() {
-      this.props.pushLoading();
       this.makeRemoteRequest();
     }
 
@@ -41,8 +38,8 @@ class Feed extends React.Component {
       fetch(url)
         .then(res => res.json())
         .then((res) => {
+          console.log(res.results);
           this.props.getPeopleFinish(res.results);
-          this.props.popLoading();
           this.props.popRefreshing();
         });
     };
@@ -52,14 +49,16 @@ class Feed extends React.Component {
       this.makeRemoteRequest();
     };
 
+    renderItem = ({ item }) => <ListItem item={item} />
+
     render() {
-      const { loading, people, refreshing } = this.props;
+      const { people, refreshing } = this.props;
 
-      const { address, loading: newLoading } = this.props.data;
+      const { address, loading } = this.props.data;
 
-      console.log(address, newLoading, 555);
+      console.log(address);
 
-      if (loading.value) {
+      if (loading) {
         return (
           <ActivityIndicator animating size="large" style={styles.container} />
         );
@@ -68,9 +67,7 @@ class Feed extends React.Component {
       return (
         <FlatList
           data={people}
-          renderItem={({ item }) => (
-            <ListItem item={item} />
-          )}
+          renderItem={this.renderItem}
           keyExtractor={item => item.login.username} // Unique field for each element
           refreshing={refreshing.value}
           onRefresh={this.handleRefresh}
@@ -83,13 +80,6 @@ const mapStateToProps = state => state;
 
 function mapDispatchToProps(dispatch) {
   return {
-    pushLoading() {
-      dispatch(pushLoading);
-    },
-    popLoading() {
-      dispatch(popLoading);
-    },
-
     pushRefreshing() {
       dispatch(pushRefreshing);
     },
@@ -106,5 +96,5 @@ function mapDispatchToProps(dispatch) {
 export default connect(mapStateToProps, mapDispatchToProps)(
   graphql(gql`
      {address(id:1){id,lat,lon}}
-  `)(Feed)
+  `)(Feed),
 );

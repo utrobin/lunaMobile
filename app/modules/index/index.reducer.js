@@ -3,7 +3,6 @@ import { ApolloClient, createNetworkInterface } from 'react-apollo';
 import { reducer as formReducer } from 'redux-form';
 import people from '../people/people.reducer';
 import nav from '../navigation/navigation.reducers';
-import loading from '../loading/loading.reducers';
 import refreshing from '../refreshing/refreshing.reducers';
 
 
@@ -11,8 +10,9 @@ const networkInterface = createNetworkInterface({ uri: 'https://utrobin.com/grap
 
 networkInterface.useAfter([{
   applyAfterware(req, next) {
-    let data = {};
+    const data = {};
 
+    // eslint-disable-next-line
     const body = JSON.parse(req.response._bodyInit);
 
     if (body.code !== 200) {
@@ -21,11 +21,13 @@ networkInterface.useAfter([{
       data.data = body.body;
     }
 
+    // eslint-disable-next-line
     req.response._bodyInit = JSON.stringify(data);
+    // eslint-disable-next-line
     req.response._bodyText = JSON.stringify(data);
 
     next();
-  }
+  },
 }]);
 
 export const client = new ApolloClient({
@@ -33,7 +35,6 @@ export const client = new ApolloClient({
 });
 
 const rootReducer = combineReducers({
-  loading,
   refreshing,
   nav,
   people,
