@@ -17,6 +17,8 @@ const reactNativePackage = require('react-native/package.json');
 const splitVersion = reactNativePackage.version.split('.');
 const majorVersion = +splitVersion[0];
 const minorVersion = +splitVersion[1];
+let key = 0;
+let key1 = -1;
 
 const styles = StyleSheet.create({
   container: {
@@ -149,25 +151,32 @@ export default class ImageSlider extends Component {
         {...this.panResponder.panHandlers}
         style={[styles.container, this.props.style, { height }]}
       >
-        {this.props.images.map((image, index) => {
-          const imageObject = typeof image === 'string' ? { uri: image } : image;
-          const imageComponent = (<Image
-            source={imageObject}
-            style={{ height, width }}
-          />);
-          if (this.props.onPress) {
-            return (
-              <TouchableOpacity
+        {
+          this.props.images.map((image, index) => {
+            const imageObject = typeof image === 'string' ? { uri: image } : image;
+
+            const imageComponent = (
+              <Image
+                key={key}
+                source={imageObject}
                 style={{ height, width }}
-                onPress={() => this.props.onPress({ image, index })}
-                delayPressIn={200}
-              >
-                {imageComponent}
-              </TouchableOpacity>
+              />
             );
-          }
-          return imageComponent;
-        })}
+            key += 1;
+
+            if (this.props.onPress) {
+              return (
+                <TouchableOpacity
+                  style={{ height, width }}
+                  onPress={() => this.props.onPress({ image, index })}
+                  delayPressIn={200}
+                >
+                  {imageComponent}
+                </TouchableOpacity>
+              );
+            }
+            return imageComponent;
+          })}
       </ScrollView>
 
       <View style={styles.footer}>
@@ -177,12 +186,21 @@ export default class ImageSlider extends Component {
         </Button>
 
         <View style={styles.buttons}>
-          {this.props.images.map((image, index) => (<View
-            underlayColor="#ccc"
-            style={[styles.button, position === index && styles.buttonSelected]}
-          >
-            <View />
-          </View>))}
+          {
+            this.props.images.map((image, index) => {
+              key1 -= 1;
+
+              return (
+                <View
+                  key={key1}
+                  underlayColor="#ccc"
+                  style={[styles.button, position === index && styles.buttonSelected]}
+                >
+                  <View />
+                </View>
+              );
+            })
+          }
         </View>
 
         <Button transparent style={styles.likes} onPress={() => console.log('Save')}>
