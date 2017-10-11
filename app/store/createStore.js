@@ -1,10 +1,14 @@
 import { createStore, applyMiddleware } from 'redux';
 import logger from 'redux-logger';
-import rootReducer from '../modules/index/index.reducer';
+import { composeWithDevTools } from 'redux-devtools-extension';
+import rootReducer, { client } from '../modules/index/index.reducer';
 
 export default function () {
   return createStore(
     rootReducer,
-    applyMiddleware(logger),
+    composeWithDevTools(
+      applyMiddleware(logger),
+      applyMiddleware(client.middleware()),
+    ),
   );
 }
