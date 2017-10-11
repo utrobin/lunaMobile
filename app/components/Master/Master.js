@@ -1,43 +1,9 @@
+/* eslint-disable max-len,react/no-unescaped-entities */
 import React from 'react';
-import {StyleSheet, View, Image, Text} from 'react-native';
-import { Card, CardItem, Left, Icon } from 'native-base';
-import {connect} from 'react-redux';
-import ImageSlider from 'react-native-image-slider';
+import { View, Image, Text } from 'react-native';
+import { connect } from 'react-redux';
+import styles from './Master.styles';
 
-const styles = StyleSheet.create({
-  container: {
-    padding: 10,
-  },
-
-  header: {
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-
-  avatar: {
-    width: 80,
-    height: 80,
-    borderRadius: 40,
-  },
-
-  headerInfo: {
-    flexDirection: 'column',
-    marginLeft: 15,
-  },
-
-  headerName: {
-    fontSize: 18,
-    marginBottom: 5,
-  },
-
-  headerAddress: {
-    fontSize: 14,
-  },
-
-  body: {
-    marginTop: 30,
-  },
-});
 
 class Master extends React.Component {
   static navigationOptions = {
@@ -48,37 +14,28 @@ class Master extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.header}>
-          <Image style={styles.avatar}
-                 source={{uri: 'http://cdn-img.instyle.com/sites/default/files/styles/276x276/public/images/2014/TRANSFORMATIONS/2009b-megan-fox-567_0.jpg?itok=Ex_Uv619'}}/>
+          <Image
+            style={styles.avatar}
+            source={{ uri: 'http://cdn-img.instyle.com/sites/default/files/styles/276x276/public/images/2014/TRANSFORMATIONS/2009b-megan-fox-567_0.jpg?itok=Ex_Uv619' }}
+          />
           <View style={styles.headerInfo}>
             <Text style={styles.headerName}>Megan Fox</Text>
             <Text style={styles.headerAddress}>Hollywood, Los Angeles, California</Text>
           </View>
         </View>
-        <Body/>
+        <View style={styles.body}>
+          <Text>Megan Denise Fox (born May 16, 1986) is an American actress and model. She began her acting career in 2001,
+            with several minor television and film roles, and played a regular role on the Hope & Faith television sitcom.
+            In 2004, she made her film debut with a role in the teen comedy Confessions of a Teenage Drama Queen.
+            In 2007, she co-starred as Mikaela Banes, the love interest of Shia LaBeouf's character, in the blockbuster
+            action film Transformers, which became her breakout role. Fox reprised her role in the 2009 sequel, Transformers:
+            Revenge of the Fallen. Later in 2009, she starred as the eponymous lead in the black comedy horror film Jennifer's Body.</Text>
+        </View>
       </View>
     );
   }
 }
 
-
-class Body extends React.Component {
-  render() {
-    return (
-      <View style={styles.body}>
-        <ImageSlider
-          height={200}
-          images={[
-            'https://i.pinimg.com/736x/59/a3/65/59a365fb1a3d959f7014956becdd4bf0.jpg',
-            'https://i.pinimg.com/736x/06/cf/58/06cf5862dac2a181b70e81cd7efa9060--on-my-own-simple-nails.jpg',
-            'https://i.pinimg.com/736x/28/81/bc/2881bcfcdfe55bb246b54a9b5ff02741--beautiful-manicure.jpg',
-          ]}
-        />
-      </View>
-    );
-  }
-}
-
-const mapStateToProps = (state) => state;
+const mapStateToProps = state => state;
 
 export default connect(mapStateToProps)(Master);
