@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, TouchableHighlight, Alert } from 'react-native';
+import { Text, View, Image, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, Left, Icon } from 'native-base';
 import ImageSlider from '../ImageSlider/ImageSlider';
@@ -23,19 +23,21 @@ class ListItem extends React.Component {
   render() {
     return (
       <Card>
-        <View style={styles.header}>
-          <Image
-            style={styles.avatar}
-            source={{ uri: 'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg' }}
-          />
-          <Left style={styles.header_info}>
-            <Text style={styles.header_name}>Салон Jasmine. Мастер Евгения.</Text>
-            <Text style={styles.header_location}>Рядом с метро Курская</Text>
-          </Left>
-          <TouchableHighlight onPress={this.onOptionsClicked}>
-            <Icon style={styles.options} name="list" />
-          </TouchableHighlight>
-        </View>
+        <TouchableOpacity onPress={() => this.props.navigateMasterScreen()}>
+          <View style={styles.header}>
+            <Image
+              style={styles.avatar}
+              source={{ uri: 'https://www.smashingmagazine.com/wp-content/uploads/2015/06/10-dithering-opt.jpg' }}
+            />
+            <Left style={styles.header_info} >
+              <Text style={styles.header_name}>Салон Jasmine. Мастер Евгения.</Text>
+              <Text style={styles.header_location}>Рядом с метро Курская</Text>
+            </Left>
+            <TouchableOpacity onPress={this.onOptionsClicked}>
+              <Icon style={styles.options} name="list" />
+            </TouchableOpacity>
+          </View>
+        </TouchableOpacity>
 
 
         <View style={styles.icons_bar}>
@@ -62,4 +64,12 @@ class ListItem extends React.Component {
 
 const mapStateToProps = state => state;
 
-export default connect(mapStateToProps)(ListItem);
+function mapDispatchToProps(dispatch) {
+  return {
+    navigateMasterScreen() {
+      dispatch({ type: 'Master' });
+    },
+  };
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ListItem);
