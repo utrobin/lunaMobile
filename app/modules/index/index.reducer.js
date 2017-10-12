@@ -3,6 +3,7 @@ import { ApolloClient, createNetworkInterface } from 'react-apollo';
 import { reducer as formReducer } from 'redux-form';
 import people from '../people/people.reducer';
 import nav from '../navigation/navigation.reducers';
+import modal from '../modal/modal.reducer';
 import refreshing from '../refreshing/refreshing.reducers';
 
 
@@ -38,6 +39,7 @@ const rootReducer = combineReducers({
   refreshing,
   nav,
   people,
+  modal,
   form: formReducer,
   apollo: client.reducer(),
 });
