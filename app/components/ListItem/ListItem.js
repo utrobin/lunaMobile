@@ -5,13 +5,16 @@ import { connect } from 'react-redux';
 import { Card, Left, Icon } from 'native-base';
 import ImageSlider from '../ImageSlider/ImageSlider';
 import styles from './ListItem.styles';
-import { openItemModal, closeItemModal } from '../../modules/modal/modal.actions';
 
 // eslint-disable-next-line
 /*eslint no-console: ["error", { allow: ["log"] }] */
 class ListItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { modalVisible: false };
+  }
+
   render() {
-    const { modal } = this.props;
     return (
       <View>
         <Card>
@@ -25,7 +28,7 @@ class ListItem extends React.Component {
                 <Text style={styles.header_name}>Салон Jasmine. Мастер Евгения.</Text>
                 <Text style={styles.header_location}>Рядом с метро Курская</Text>
               </Left>
-              <TouchableOpacity onPress={() => this.props.openItemOptions()}>
+              <TouchableOpacity onPress={() => this.setState({ modalVisible: true })}>
                 <Icon style={styles.options} name="list" />
               </TouchableOpacity>
             </View>
@@ -54,27 +57,27 @@ class ListItem extends React.Component {
 
         <Modal
           transparent
-          visible={modal.value}
+          visible={this.state.modalVisible}
         >
-          <TouchableWithoutFeedback style={styles.modalContainer} onPress={() => this.props.closeItemOptions()}>
+          <TouchableWithoutFeedback style={styles.modalContainer} onPress={() => this.setState({ modalVisible: false })}>
             <View style={styles.modalContainer}>
               <View style={styles.modalDialog}>
 
-                <TouchableHighlight underlayColor="#E6E6E6" onPress={() => this.props.closeItemOptions()}>
+                <TouchableHighlight underlayColor="#E6E6E6" onPress={() => this.setState({ modalVisible: false })}>
                   <View style={styles.modalItem}>
                     <Text style={styles.modalText}>Пожаловаться...</Text>
                   </View>
                 </TouchableHighlight>
 
-                <TouchableHighlight underlayColor="#E6E6E6" onPress={() => this.props.closeItemOptions()}>
+                <TouchableHighlight underlayColor="#E6E6E6" onPress={() => this.setState({ modalVisible: false })}>
                   <View style={styles.modalItem}>
                     <Text style={styles.modalText}>Скопировать ссылку</Text>
                   </View>
                 </TouchableHighlight>
 
-                <TouchableHighlight underlayColor="#E6E6E6" onPress={() => this.props.closeItemOptions()}>
+                <TouchableHighlight underlayColor="#E6E6E6" onPress={() => this.setState({ modalVisible: false })}>
                   <View style={styles.modalItem}>
-                    <Text style={styles.modalText}>Включить уведомления о публикацих</Text>
+                    <Text style={styles.modalText}>Включить уведомления о публикациях</Text>
                   </View>
                 </TouchableHighlight>
               </View>
@@ -93,12 +96,6 @@ function mapDispatchToProps(dispatch) {
   return {
     navigateMasterScreen() {
       dispatch({ type: 'Master' });
-    },
-    openItemOptions() {
-      dispatch(openItemModal);
-    },
-    closeItemOptions() {
-      dispatch(closeItemModal);
     },
   };
 }
