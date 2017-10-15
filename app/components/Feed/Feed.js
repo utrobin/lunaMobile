@@ -1,18 +1,12 @@
 import React from 'react';
-import { StyleSheet, Image, FlatList, ActivityIndicator } from 'react-native';
+import { Image, FlatList, ActivityIndicator } from 'react-native';
 import { connect } from 'react-redux';
 import { graphql, gql } from 'react-apollo';
 import { getPeopleFinish } from '../../modules/people/people.actions';
 import { pushRefreshing, popRefreshing } from '../../modules/refreshing/refreshing.actions';
 import ListItem from '../ListItem/ListItem';
 import imgHome from '../../assets/img/ic_home_black_24dp_2x.png';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-});
+import styles from './Feed.styles';
 
 class Feed extends React.Component {
     static navigationOptions = {
