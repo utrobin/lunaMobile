@@ -72,6 +72,25 @@ const styles = StyleSheet.create({
     opacity: 1,
     backgroundColor: '#000000',
   },
+  modalContainer: {
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: 'rgba(0,0,0,0.6)',
+  },
+  modalDialog: {
+    backgroundColor: '#ffffff',
+    borderRadius: 5,
+  },
+  modalItem: {
+    height: 50,
+    justifyContent: 'center',
+  },
+  modalText: {
+    marginLeft: 30,
+    marginRight: 30,
+  },
 });
 
 export default styles;
