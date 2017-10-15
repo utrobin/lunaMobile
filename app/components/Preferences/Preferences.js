@@ -1,17 +1,9 @@
 import React from 'react';
-import { StyleSheet, View, Image } from 'react-native';
+import { View, Image } from 'react-native';
 import { connect } from 'react-redux';
 import { Text } from 'native-base';
 import imgSettings from '../../assets/img/ic_settings_black_24dp_2x.png';
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    padding: 10,
-    justifyContent: 'center',
-  },
-});
+import styles from './Preferences.styles';
 
 class Preferences extends React.Component {
     static navigationOptions = {
