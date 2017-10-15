@@ -1,5 +1,5 @@
 import React from 'react';
-import { Text, View, Image, TouchableOpacity, Alert } from 'react-native';
+import { Text, View, Image, TouchableOpacity, TouchableWithoutFeedback, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { Card, Left, Icon } from 'native-base';
 import ImageSlider from '../ImageSlider/ImageSlider';
@@ -23,7 +23,7 @@ class ListItem extends React.Component {
   render() {
     return (
       <Card>
-        <TouchableOpacity onPress={() => this.props.navigateMasterScreen()}>
+        <TouchableWithoutFeedback onPress={() => this.props.navigateMasterScreen()}>
           <View style={styles.header}>
             <Image
               style={styles.avatar}
@@ -37,7 +37,7 @@ class ListItem extends React.Component {
               <Icon style={styles.options} name="list" />
             </TouchableOpacity>
           </View>
-        </TouchableOpacity>
+        </TouchableWithoutFeedback>
 
 
         <View style={styles.icons_bar}>
