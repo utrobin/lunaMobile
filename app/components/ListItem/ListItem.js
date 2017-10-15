@@ -18,7 +18,7 @@ class ListItem extends React.Component {
     return (
       <View>
         <Card>
-          <TouchableOpacity onPress={() => this.props.navigateMasterScreen()}>
+          <TouchableWithoutFeedback onPress={() => this.props.navigateMasterScreen()}>
             <View style={styles.header}>
               <Image
                 style={styles.avatar}
@@ -32,7 +32,7 @@ class ListItem extends React.Component {
                 <Icon style={styles.options} name="list" />
               </TouchableOpacity>
             </View>
-          </TouchableOpacity>
+          </TouchableWithoutFeedback>
 
 
           <View style={styles.icons_bar}>
