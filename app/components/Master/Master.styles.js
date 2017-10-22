@@ -2,12 +2,25 @@ import { StyleSheet } from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
   },
 
   header: {
-    flexDirection: 'row',
+    backgroundColor: '#4d616e',
+    height: 250,
+    flexDirection: 'column',
     alignItems: 'center',
+  },
+
+  avatarContainer: {
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+
+  sign: {
+    width: 26,
+    height: 26,
+    flex: 'right',
   },
 
   avatar: {
@@ -16,18 +29,10 @@ const styles = StyleSheet.create({
     borderRadius: 40,
   },
 
-  headerInfo: {
-    flexDirection: 'column',
-    marginLeft: 15,
-  },
-
-  headerName: {
+  name: {
     fontSize: 18,
-    marginBottom: 5,
-  },
-
-  headerAddress: {
-    fontSize: 14,
+    marginTop: 10,
+    color: '#ffffff',
   },
 
   body: {
